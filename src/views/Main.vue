@@ -8,22 +8,20 @@
 <script>
 import Nav from '@/components/Nav'
 import {
-  getActivities
-} from '@/services/activities.services'
+  mapGetters
+} from 'vuex'
 
 export default {
   components: {
     Nav
   },
-  data: () => ({
-    activities: []
-  }),
-  created() {
-    getActivities().then(({
-      data
-    }) => {
-      this.activities = data
-    })
+  computed: {
+    ...mapGetters('activities', [
+      'activities'
+    ])
+  },
+  mounted() {
+    this.$store.dispatch('activities/fetchActivities')
   }
 }
 </script>
