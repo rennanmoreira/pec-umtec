@@ -3,10 +3,10 @@
   <div class="logo">
     <img src="@/assets/images/PEG_Contas.png" alt="P.E.G. Logo">
   </div>
-  <div :class="['nav-item', {'active': navItem.active}]" v-for="(navItem, navItemIndex) in navItems" :key="`navItemIndex${navItemIndex}`">
+  <div :class="['nav-item', {'active': navItem.active}]" v-for="(navItem, navItemIndex) in navItems" :key="`navItemIndex${navItemIndex}`" @click="accessItem(navItem, navItemIndex)">
     <div class="nav-item-box">
       <CustomIcon name="note-outline" size=18 />
-      <router-link class="nav-item-text" :to="navItem.route">{{navItem.title}}</router-link>
+      <span class="nav-item-text">{{navItem.title}}</span>
     </div>
   </div>
 </div>
@@ -19,29 +19,38 @@ export default {
       name: 'myActivities',
       title: 'Minhas atividades',
       active: true,
-      route: ''
+      route: '/'
     }, {
       name: 'allAccounts',
       title: 'Todas as contas',
       active: false,
-      route: ''
+      route: '/'
     }, {
       name: 'users',
       title: 'Usuários',
       active: false,
-      route: ''
+      route: '/'
     }, {
       name: 'performance',
       title: 'Desempenho',
       active: false,
-      route: ''
+      route: '/'
     }, {
       name: 'dashboard',
       title: 'Dashboard',
       active: false,
-      route: ''
+      route: '/'
     }]
-  })
+  }),
+  methods: {
+    accessItem(item, itemIndex) {
+      this.navItems.forEach(i => i.active = false)
+
+      this.navItems[itemIndex].active = true
+
+      this.$router.push(item.route)
+    }
+  }
 }
 </script>
 
@@ -61,6 +70,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+    box-shadow: 0 0 4px #00000052;
   }
 
   .nav-item {
@@ -102,6 +112,7 @@ export default {
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      padding-top: 2px;
 
       .nav-item-text {
         font-size: 11px;
