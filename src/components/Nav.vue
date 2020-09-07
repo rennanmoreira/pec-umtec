@@ -3,11 +3,12 @@
   <div class="logo">
     <img src="@/assets/images/PEG_Contas.png" alt="P.E.G. Logo">
   </div>
-  <div v-for="(navItem, navItemIndex) in navItems" :class="['nav-item', {'active': true}]" :key="`navItemIndex${navItemIndex}`">
-    <router-link class="nav-item-text" :to="navItem.route">{{navItem.title}}</router-link>
+  <div :class="['nav-item', {'active': navItem.active}]" v-for="(navItem, navItemIndex) in navItems" :key="`navItemIndex${navItemIndex}`">
+    <div class="nav-item-box">
+      <CustomIcon name="note-outline" size=18 />
+      <router-link class="nav-item-text" :to="navItem.route">{{navItem.title}}</router-link>
+    </div>
   </div>
-  <router-link to="/">Home</router-link> |
-  <router-link to="/about">About</router-link>
 </div>
 </template>
 
@@ -17,22 +18,27 @@ export default {
     navItems: [{
       name: 'myActivities',
       title: 'Minhas atividades',
+      active: true,
       route: ''
     }, {
       name: 'allAccounts',
       title: 'Todas as contas',
+      active: false,
       route: ''
     }, {
       name: 'users',
       title: 'Usuários',
+      active: false,
       route: ''
     }, {
       name: 'performance',
       title: 'Desempenho',
+      active: false,
       route: ''
     }, {
       name: 'dashboard',
       title: 'Dashboard',
+      active: false,
       route: ''
     }]
   })
@@ -58,37 +64,56 @@ export default {
   }
 
   .nav-item {
-    padding: 10px 10px;
     height: 50px;
-    font-size: 11px;
+    margin: 5px 0px;
+    padding: 5px 10px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     &.active {
       color: #2793FF;
-      // border-left: 3px solid #2793FF;
       border-radius: 0px 5px 5px 0;
       position: relative;
 
       &:after {
         content: '';
-        height: calc(100% - 20px);
+        height: 100%;
         border: 3px solid #2793FF;
         position: absolute;
         border-top: 0;
         border-left: 0;
         border-radius: 0 5px 5px 0;
         left: 0px;
+        top: 0px;
+      }
+
+      .nav-item-box {
+        .nav-item-text {
+          color: #2793FF;
+        }
+
+        ::v-deep .custom-icon>path {
+          fill: #2793FF;
+        }
       }
     }
 
-    .nav-item-text {
-      color: #2793FF;
-      text-decoration: initial;
-    }
+    .nav-item-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
+      .nav-item-text {
+        font-size: 11px;
+        padding-top: 6px;
+        color: #9BA8C5;
+        text-decoration: initial;
+      }
+
+      ::v-deep .custom-icon>path {
+        fill: #9BA8C5;
+      }
+    }
   }
 }
 </style>
