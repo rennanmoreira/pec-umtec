@@ -3,6 +3,14 @@
   <Nav />
   <div class="page-layout">
 
+    <div class="select-filter">
+      <label for="actualOrganization">Organizar por: </label>
+      <select id="actualOrganization" v-model="actualOrganization">
+        <option value="organizeByPrioritySLA">Prioridade (SLA)</option>
+        <option value="organizeByReceiveDocuments">Receber documentos</option>
+      </select>
+    </div>
+
     <div class="card-list">
       <Card v-for="(card, index) in cards" :key="`card${index}`" :data="card" />
     </div>
@@ -60,6 +68,17 @@ export default {
   .page-layout {
     padding: 40px;
     overflow: auto;
+
+    .select-filter {
+      select {
+        height: 40px;
+        width: 250px;
+        background: transparent;
+        border: 2px solid #4d556c63;
+        border-radius: 4px;
+        padding: 5px;
+      }
+    }
 
     .card-list {
       display: flex;
