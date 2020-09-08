@@ -1,5 +1,7 @@
 [![](/peg-contas.png)]()
 
+# Project running on the latest version in https://peg-front.herokuapp.com/
+
 ## Project setup
 ```
 yarn install
@@ -10,9 +12,14 @@ yarn install
 yarn serve
 ```
 
-### Compiles and hot-reloads for server
+### Compiles and hot-reloads for mocked API server
 ```
 yarn server
+```
+
+### Run in production mode
+```
+yarn start
 ```
 
 ### Compiles and minifies for production
