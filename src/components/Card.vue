@@ -10,7 +10,7 @@
       <div class="patient-plan">Amil Saúde</div>
     </span>
     <span class="check-card">
-      <input type="checkbox">
+      <input type="checkbox" v-model="data.checked">
     </span>
   </div>
   <div class="card-body">

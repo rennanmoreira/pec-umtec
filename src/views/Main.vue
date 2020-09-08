@@ -40,7 +40,7 @@
     </div>
 
     <div class="check-cards">
-      <input id="checkAllCards" type="checkbox">
+      <input id="checkAllCards" type="checkbox" v-model="selectAllNoPendingDocuments" @change="selectAllCardsNoPendingDocuments($event.target.checked)">
       <label for="checkAllCards">Selecionar tudo</label>
     </div>
 
@@ -66,7 +66,8 @@ export default {
   },
   data: () => ({
     actualOrganization: 'organizeByPrioritySLA',
-    organizationOptions: ['organizeByPrioritySLA', 'organizeByReceiveDocuments']
+    organizationOptions: ['organizeByPrioritySLA', 'organizeByReceiveDocuments'],
+    selectAllNoPendingDocuments: false
   }),
   computed: {
     ...mapGetters('activities', [
@@ -96,6 +97,9 @@ export default {
     },
     changeCardsOrganization(index) {
       this.actualOrganization = this.organizationOptions[index]
+    },
+    selectAllCardsNoPendingDocuments(value) {
+      this.$store.commit('cards/SELECT_ALL_CARDS_NO_PENDING_DOCUMENT', value)
     }
   },
   mounted() {

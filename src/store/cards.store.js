@@ -16,7 +16,8 @@ const actions = {
 }
 
 const mutations = {
-  SET_CARDS: (state, data) => state.cards = data
+  SET_CARDS: (state, data) => state.cards = data.map(i => ({checked: false, ...i})),
+  SELECT_ALL_CARDS_NO_PENDING_DOCUMENT: (state, checked) => state.cards = state.cards.map(i => i.hasPendingDocument ? i : {...i, checked }),
 }
 
 export default {
