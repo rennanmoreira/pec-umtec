@@ -1,17 +1,26 @@
 const express = require('express')
 const serveStatic = require('serve-static')
 const path = require('path')
+const jsonServer = require('json-server')
+
+const port = process.env.PORT || 8080
+const portServer = process.env.PORT_SERVER || 3000
 
 const app = express()
+const server = jsonServer.create()
+const router = jsonServer.router('server/db.json')
 
-//here we are configuring dist to serve app files
 app.use('/', serveStatic(path.join(__dirname, '/dist')))
 
-// this * route is to serve project on different page routes except root `/`
 app.get(/.*/, function (req, res) {
   res.sendFile(path.join(__dirname, '/dist/index.html'))
 })
 
-const port = process.env.PORT || 8080
+server.use(jsonServer.defaults())
+server.use(router)
+
 app.listen(port)
+server.listen(portServer)
+
 console.log(`app is listening on port: ${port}`)
+console.log(`server is listening on port: ${portServer}`)

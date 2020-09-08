@@ -1,6 +1,7 @@
 [![](/peg-contas.png)]()
 
-# Project running on the latest version in https://peg-front.herokuapp.com/
+## Project deployed in heroku
+Running on the latest version on [PEG Web App](https://peg-front.herokuapp.com/)
 
 ## Project setup
 ```
@@ -17,7 +18,7 @@ yarn serve
 yarn server
 ```
 
-### Run in production mode
+### Run in project in production mode with mocked API server
 ```
 yarn start
 ```
