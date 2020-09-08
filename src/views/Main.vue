@@ -189,6 +189,10 @@ export default {
       }
 
       .select-filter {
+        label {
+          font-weight: 500;
+        }
+
         select {
           height: 40px;
           width: 250px;

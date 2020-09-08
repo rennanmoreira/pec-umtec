@@ -1,11 +1,11 @@
 <template>
 <div class="nav">
-  <div class="logo">
+  <div class="logo" @click="$router.push('/')">
     <img src="@/assets/images/PEG_Contas.png" alt="P.E.G. Logo">
   </div>
   <div :class="['nav-item', {'active': navItem.active}]" v-for="(navItem, navItemIndex) in navItems" :key="`navItemIndex${navItemIndex}`" @click="accessItem(navItem, navItemIndex)">
     <div class="nav-item-box">
-      <CustomIcon name="note-outline" size=18 />
+      <CustomIcon :name="navItem.name" size=18 />
       <span class="nav-item-text">{{navItem.title}}</span>
     </div>
   </div>
@@ -14,30 +14,30 @@
 
 <script>
 const menuItems = [{
-  name: 'myActivities',
+  name: 'note-outline',
   title: 'Minhas atividades',
   active: true,
-  route: '/'
+  route: '/my-activities'
 }, {
-  name: 'allAccounts',
+  name: 'view-agenda-outline',
   title: 'Todas as contas',
   active: false,
-  route: '/'
+  route: '/all-accounts'
 }, {
-  name: 'users',
+  name: 'account-outline',
   title: 'Usuários',
   active: false,
-  route: '/'
+  route: '/users'
 }, {
-  name: 'performance',
+  name: 'poll',
   title: 'Desempenho',
   active: false,
-  route: '/'
+  route: '/performance'
 }, {
-  name: 'dashboard',
+  name: 'timer',
   title: 'Dashboard',
   active: false,
-  route: '/'
+  route: '/dashboard'
 }]
 
 export default {
