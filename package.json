@@ -2,6 +2,7 @@
 	"name": "peg-teste-front",
 	"version": "0.1.0",
 	"scripts": {
+    "start": "node server.js",
 		"serve": "vue-cli-service serve",
 		"server": "npx ./node_modules/json-server/lib/cli/bin.js server/db.json --routes server/routes.json",
 		"build": "vue-cli-service build",
