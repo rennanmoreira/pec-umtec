@@ -13,34 +13,36 @@
 </template>
 
 <script>
+const menuItems = [{
+  name: 'myActivities',
+  title: 'Minhas atividades',
+  active: true,
+  route: '/'
+}, {
+  name: 'allAccounts',
+  title: 'Todas as contas',
+  active: false,
+  route: '/'
+}, {
+  name: 'users',
+  title: 'Usuários',
+  active: false,
+  route: '/'
+}, {
+  name: 'performance',
+  title: 'Desempenho',
+  active: false,
+  route: '/'
+}, {
+  name: 'dashboard',
+  title: 'Dashboard',
+  active: false,
+  route: '/'
+}]
+
 export default {
   data: () => ({
-    navItems: [{
-      name: 'myActivities',
-      title: 'Minhas atividades',
-      active: true,
-      route: '/'
-    }, {
-      name: 'allAccounts',
-      title: 'Todas as contas',
-      active: false,
-      route: '/'
-    }, {
-      name: 'users',
-      title: 'Usuários',
-      active: false,
-      route: '/'
-    }, {
-      name: 'performance',
-      title: 'Desempenho',
-      active: false,
-      route: '/'
-    }, {
-      name: 'dashboard',
-      title: 'Dashboard',
-      active: false,
-      route: '/'
-    }]
+    navItems: menuItems
   }),
   methods: {
     accessItem(item, itemIndex) {

@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="patient-billing">
-      <div class="billing-value">{{formattedValue}}</div>
+      <div class="billing-value">{{mixinFormatMoney(this.data.value)}}</div>
       <div class="billing-pendencies">{{data.pendencies}} {{data.pendencies === 1 ? 'pendência' : 'pendências'}}</div>
     </div>
   </div>
@@ -43,7 +43,9 @@
 </template>
 
 <script>
-import formatMoney from '@/helpers/formatMoney.helpers'
+import {
+  mainMixin
+} from '@/mixins/index.mixins.js'
 
 const normalizeStatus = {
   'DELAYED': 'delayed',
@@ -52,6 +54,7 @@ const normalizeStatus = {
 }
 
 export default {
+  mixins: [mainMixin],
   props: {
     data: {
       type: Object,
@@ -62,9 +65,6 @@ export default {
   computed: {
     statusOptions() {
       return normalizeStatus
-    },
-    formattedValue() {
-      return formatMoney(this.data.value)
     }
   },
   methods: {}
