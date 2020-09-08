@@ -219,6 +219,29 @@ export default {
       }
     }
 
+    @media screen and (max-width: 1200px) {
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .page-title {
+          margin-bottom: 15px;
+        }
+
+        .cards-count {
+          margin-bottom: 15px;
+        }
+
+        .select-filter {
+          margin-bottom: 5px;
+        }
+      }
+
+      .check-cards {
+        justify-content: flex-start;
+      }
+    }
+
     .card-list {
       justify-content: space-between;
       display: flex;
