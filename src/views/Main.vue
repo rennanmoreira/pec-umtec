@@ -1,19 +1,24 @@
 <template>
 <div class="main">
   <Nav />
-  {{activities}}
+  <div class="page-layout">
+    <Card />
+
+  </div>
 </div>
 </template>
 
 <script>
 import Nav from '@/components/Nav'
+import Card from '@/components/Card'
 import {
   mapGetters
 } from 'vuex'
 
 export default {
   components: {
-    Nav
+    Nav,
+    Card
   },
   computed: {
     ...mapGetters('activities', [
@@ -31,5 +36,9 @@ export default {
   display: flex;
   height: 100%;
   width: 100%;
+
+  .page-layout {
+    padding: 40px;
+  }
 }
 </style>
