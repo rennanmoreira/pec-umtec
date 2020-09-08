@@ -1,12 +1,12 @@
 <template>
 <div class="card">
   <div class="card-header">
-    <span class="status">
-      <div class="days-number">27</div>
+    <span :class="['status', statusOptions[data.status]]">
+      <div class="days-number">{{data.days}}</div>
       <div class="days-label">Dias</div>
     </span>
     <span class="card-title">
-      <div class="patient-name">Sudanka Bakalowits</div>
+      <div class="patient-name">{{data.patientName}}</div>
       <div class="patient-plan">Amil Saúde</div>
     </span>
     <span class="check-card">
@@ -15,39 +15,27 @@
   </div>
   <div class="card-body">
     <div class="patient-info">
-      <div>
-        <label>Conta</label>
-        <span class="item-value">7929215</span>
-      </div>
-      <div>
-        <label>Atend.</label>
-        <span class="item-value">AT893701</span>
-      </div>
-      <div>
-        <label>Remessa</label>
-        <span class="item-value">893701</span>
-      </div>
-      <div>
-        <label>Lote</label>
-        <span class="item-value">893701</span>
+      <div class="patient-info-item" v-for="({label, value}, index) in data.billSources" :key="`billSource${index}`">
+        <label>{{label}}</label>
+        <span class="item-value">{{value || 'N/A'}}</span>
       </div>
     </div>
     <div class="patient-billing">
-      <div class="billing-value">R$ 5.789,97</div>
-      <div class="billing-pendencies">5 pendências</div>
+      <div class="billing-value">{{formattedValue}}</div>
+      <div class="billing-pendencies">{{data.pendencies}} {{data.pendencies === 1 ? 'pendência' : 'pendências'}}</div>
     </div>
   </div>
   <div class="card-footer">
     <div class="bill-types">
-      <div class="bill-types-item">Q</div>
-      <div class="bill-types-item">R</div>
+      <div class="bill-types-item" v-for="(billType, index) in data.billTypes" :key="`billType${index}`">{{billType}}</div>
     </div>
     <div class="options">
-      <span>
+      <span class="option-item" v-if="data.showAttachment">
         <CustomIcon name="attach-file" size=28 color="#4F576E" />
       </span>
-      <span>
+      <span class="option-item" v-if="data.showDocument">
         <CustomIcon name="file-document" size=28 color="#4F576E" />
+        <span class="badge" v-if="data.hasPendingDocument"></span>
       </span>
     </div>
   </div>
@@ -55,8 +43,31 @@
 </template>
 
 <script>
-export default {
+import formatMoney from '@/helpers/formatMoney.helpers'
 
+const normalizeStatus = {
+  'DELAYED': 'delayed',
+  'WARNING': 'warning',
+  'GOOD': 'good'
+}
+
+export default {
+  props: {
+    data: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    }
+  },
+  computed: {
+    statusOptions() {
+      return normalizeStatus
+    },
+    formattedValue() {
+      return formatMoney(this.data.value)
+    }
+  },
+  methods: {}
 }
 </script>
 
@@ -68,6 +79,7 @@ export default {
   border-radius: 5px;
   box-shadow: 0 0 6px #00000020;
   padding: 20px;
+  margin: 20px;
 
   .card-header {
     display: flex;
@@ -75,13 +87,25 @@ export default {
     .status {
       height: 60px;
       width: 60px;
-      background-color: #FD5958;
+      background-color: gray;
       color: white;
       border-radius: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+
+      &.delayed {
+        background-color: #FD5958;
+      }
+
+      &.warning {
+        background-color: #FFC734;
+      }
+
+      &.good {
+        background-color: #20BF6B;
+      }
 
       .days-number {
         font-size: 24px;
@@ -104,7 +128,7 @@ export default {
 
       .patient-name {
         font-size: 20px;
-        padding: 0px 0px 4px;
+        padding: 0px 0px 7px;
       }
 
       .patient-plan {
@@ -115,6 +139,7 @@ export default {
 
     .check-card {
       input[type="checkbox"] {
+        cursor: pointer;
         width: 18px;
         height: 18px;
       }
@@ -129,16 +154,22 @@ export default {
       justify-content: space-between;
       color: #585F75;
 
-      label {
-        font-size: 11px;
-        display: flex;
-        justify-content: flex-start;
+      .patient-info-item {
+
+        label {
+          font-size: 11px;
+          display: flex;
+          justify-content: flex-start;
+        }
+
+        .item-value {
+          display: flex;
+          justify-content: flex-start;
+          font-size: 15px;
+          font-weight: 500;
+        }
       }
 
-      .item-value {
-        font-size: 15px;
-        font-weight: 500;
-      }
     }
 
     .patient-billing {
@@ -192,8 +223,18 @@ export default {
     .options {
       display: flex;
 
-      span {
+      .option-item {
         padding-left: 5px;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .badge {
+        position: absolute;
+        right: 0px;
+        padding: 6px 6px;
+        border-radius: 50%;
+        background-color: #FD5958;
       }
     }
   }
