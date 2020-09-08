@@ -4,7 +4,7 @@ const path = require('path')
 const jsonServer = require('json-server')
 
 const port = process.env.PORT || 8080
-const portServer = process.env.PORT_SERVER || 3000
+const portServer = process.env.PORT_SERVER || 8081
 
 const app = express()
 const server = jsonServer.create()
