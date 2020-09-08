@@ -73,16 +73,27 @@ export default {
       'activities'
     ]),
     ...mapGetters('cards', [
-      'countTotal',
-      'countStatus',
       'organizeByPrioritySLA',
       'organizeByReceiveDocuments'
     ]),
     cards() {
       return this[this.actualOrganization]
+    },
+    countTotal() {
+      return this.cards.length
+    },
+    countStatus() {
+      return {
+        good: this.countCardsByStatus(this.cards, 'GOOD'),
+        warning: this.countCardsByStatus(this.cards, 'WARNING'),
+        delayed: this.countCardsByStatus(this.cards, 'DELAYED')
+      }
     }
   },
   methods: {
+    countCardsByStatus(cards, status) {
+      return cards.filter(card => card.status === status).length
+    },
     changeCardsOrganization(index) {
       this.actualOrganization = this.organizationOptions[index]
     }
