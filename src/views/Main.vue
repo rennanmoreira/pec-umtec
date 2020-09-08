@@ -59,6 +59,7 @@ export default {
 
   .page-layout {
     padding: 40px;
+    overflow: auto;
 
     .card-list {
       display: flex;
